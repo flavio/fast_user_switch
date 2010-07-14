@@ -68,7 +68,6 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
 
   //Cache the icon pixmaps
   QSize iconSize = QSize(KIconLoader::SizeSmallMedium, KIconLoader::SizeSmallMedium);
-  QPixmap pixmap = KIcon("video-display").pixmap(iconSize);
 
   SessList sessions;
   KDisplayManager manager;
@@ -77,6 +76,7 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
   QList<Plasma::IconWidget*> entries;
 
   foreach(SessEnt session, sessions) {
+    QPixmap pixmap;
     KUser user (session.user);
     if (!user.isValid())
       continue;
