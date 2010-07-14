@@ -22,7 +22,10 @@
 
 #include <kicon.h>
 #include <kiconloader.h>
+#include <kuser.h>
 #include <plasma/extenderitem.h>
+#include <plasma/tooltipcontent.h>
+#include <plasma/tooltipmanager.h>
 
 using namespace Plasma;
 
@@ -56,6 +59,18 @@ void FastUserSwitch::init()
 {
   setHasConfigurationInterface(false);
   setPopupIcon(DEFAULT_ICON_NAME);
+
+  //init tooltip
+  KUser user;
+  QString username = user.property(KUser::FullName).toString();
+  if (username.isEmpty())
+    username = user.loginName();
+
+  Plasma::ToolTipContent data;
+  data.setMainText(i18n("Fast user switch"));
+  data.setSubText(i18n("You are currently logged in as %1", username));
+  data.setImage(KIcon(DEFAULT_ICON_NAME).pixmap(IconSize(KIconLoader::Desktop)));
+  Plasma::ToolTipManager::self()->setContent(this, data);
 }
 
 void FastUserSwitch::initExtenderItem(Plasma::ExtenderItem *item)
