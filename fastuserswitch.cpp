@@ -29,7 +29,7 @@
 
 using namespace Plasma;
 
-static const char DEFAULT_ICON_NAME[] = "system-switch-user";
+static const char DEFAULT_ICON_NAME[] = "user-identity";
 
 K_EXPORT_PLASMA_APPLET(fastuserswitch, FastUserSwitch)
 

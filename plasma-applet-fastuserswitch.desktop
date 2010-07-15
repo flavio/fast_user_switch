@@ -7,7 +7,7 @@ Comment=Fast user switching applet
 Comment[en_GB]=Fast user switching applet
 Comment[it]=Applet per il cambio rapido di utente
 Comment[x-test]=xxFast user switching appletxx
-Icon=system-switch-user
+Icon=user-identity
 Type=Service
 X-KDE-ServiceTypes=Plasma/Applet
 
