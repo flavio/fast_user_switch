@@ -17,76 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#ifndef FASTUSERSWITCH_H
-#define FASTUSERSWITCH_H
+#ifndef COMMON_H
+#define COMMON_H
 
-//Plasma
-#include <plasma/popupapplet.h>
+#include <QtCore/QString>
+#include <QtGui/QPixmap>
 
-#include "ui_fastuserswitchConfig.h"
+static const char DEFAULT_ICON_NAME[] = "user-identity";
 
-class QGraphicsLinearLayout;
-
-namespace Plasma {
-  class ExtenderItem;
-  class Label;
-}
-
-class KConfigDialog;
-class SessionWidget;
-
-/**
-* @short Applet used to switch between user sessions
-*
-*/
-class FastUserSwitch : public Plasma::PopupApplet
-{
-  Q_OBJECT
-
-  public:
-    /**
-    * Constructor of the applet
-    * @param parent the parent of this object
-    **/
-    FastUserSwitch(QObject *parent, const QVariantList &args);
-
-    /**
-    * Default destructor
-    **/
-    ~FastUserSwitch();
-
-    void init();
-    virtual void constraintsEvent(Plasma::Constraints constraints);
-
-  public slots:
-    void configChanged();
-
-  protected Q_SLOTS:
-    void configAccepted();
-
-  protected:
-    void createConfigurationInterface(KConfigDialog *parent);
-    void popupEvent(bool show);
-
-  private:
-    void initExtenderItem(Plasma::ExtenderItem *item);
-    void checkLayout();
-    void setupTooltip();
-    
-    QGraphicsLinearLayout* m_layout;
-    SessionWidget* m_dialog;
-    Plasma::Label* m_labelIcon;
-    Plasma::Label* m_labelName;
-    Plasma::ExtenderItem* m_extender;
-    QPixmap m_userpixmap;
-
-    bool m_showOnlyIcon;
-    bool m_showOnlyText;
-    bool m_showIconPlusText;
-    bool m_useCompleteName;
-    bool m_useUserImage;
-
-    Ui::FastuserswitchConfig ui;
-};
+const QString currentUsername(bool useShortName=false);
+QPixmap currentUserIcon();
 
 #endif
