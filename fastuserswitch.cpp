@@ -75,15 +75,14 @@ void FastUserSwitch::init()
   m_layout->setSpacing(0);
 
   m_labelIcon = new Plasma::Label();
-  m_labelIcon->setScaledContents(true);
-  m_labelIcon->nativeWidget()->setSizePolicy(QSizePolicy::Minimum,
-                                             QSizePolicy::Minimum);
+  m_labelIcon->nativeWidget()->setSizePolicy(QSizePolicy::Preferred,
+                                             QSizePolicy::Preferred);
 
   m_labelName = new Plasma::Label();
   m_labelName->setAlignment(Qt::AlignCenter);
-  m_labelName->setScaledContents(true);
-//  m_labelName->nativeWidget()->setSizePolicy(QSizePolicy::Minimum,  
-//                                             QSizePolicy::Minimum);
+  m_labelName->nativeWidget()->setMargin(10);
+  m_labelName->nativeWidget()->setSizePolicy(QSizePolicy::MinimumExpanding,
+                                             QSizePolicy::MinimumExpanding);
 
   setLayout(m_layout);
 
@@ -104,7 +103,8 @@ void FastUserSwitch::setupTooltip()
 
   Plasma::ToolTipContent data;
   data.setMainText(i18n("Fast user switch"));
-  data.setSubText(i18n("You are currently logged in as %1", username));
+  data.setSubText(i18n("You are currently logged in as <em>%1</em>.",
+                       username));
   data.setImage(pixmap);
   Plasma::ToolTipManager::self()->setContent(this, data);
 }
@@ -213,13 +213,12 @@ void FastUserSwitch::checkLayout()
     }
 
     m_labelIcon->nativeWidget()->setPixmap(pixmap);
+    m_labelIcon->setPreferredSize(pixmap.width(), pixmap.height());
+    m_labelIcon->setMaximumSize(pixmap.width(), pixmap.height());
     m_layout->addItem(m_labelIcon);
-
-//    setMinimumHeight(pixmap.height());
-//    setPreferredHeight(pixmap.height() + MARGINSIZE);
   }
 
-  m_labelName->setText(currentUsername(!m_useCompleteName));
+  m_labelName->setText(QString("<strong>%1</strong>").arg(currentUsername(!m_useCompleteName)));
 }
 
 void FastUserSwitch::constraintsEvent(Plasma::Constraints constraints)
