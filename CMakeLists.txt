@@ -10,6 +10,7 @@ include_directories(
 )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+include_directories(${KDE4_INCLUDES} ${QT_INCLUDES})
 
 set(fastuserswitch_SRCS
     common.cpp
