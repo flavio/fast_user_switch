@@ -1,3 +1,13 @@
+Fri Jul 23 00:44:48 CEST 2010  Flavio Castelli  <flavio@castelli.name>
+
+	* added new configurations:
+		- show only icon.
+		- show icon + name.
+		- show only name.
+	* it's possible to show user's avatar image instead of the default picture.
+	* it's possible to show user's complete name instead of his login name.
+	* fixed some build issues.
+
 Wed Jul 14 13:42:46 CEST 2010  Flavio Castelli  <flavio@castelli.name>
 
 	* added tooltip
