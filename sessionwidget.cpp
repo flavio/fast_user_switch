@@ -80,12 +80,15 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
     if (!user.isValid())
       continue;
 
+    if (session.tty)
+      continue;
+
     Plasma::IconWidget* entry = createButton(this);
-    pixmap = getUserIcon();
+    pixmap = getUserIcon(user);
 
     entry->setIcon(pixmap);
 
-    QString username = getUsername();
+    QString username = getUsername(false, user);
     entry->setText(username);
 
     connect(entry, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
