@@ -68,8 +68,8 @@ void FastUserSwitch::init()
 {
   configChanged();
 
-  QString username = currentUsername(!m_useCompleteName);
-  m_userpixmap = currentUserIcon();
+  QString username = getUsername(!m_useCompleteName);
+  m_userpixmap = getUserIcon();
 
   m_layout = new QGraphicsLinearLayout(Qt::Horizontal, this);
   m_layout->setSpacing(0);
@@ -92,7 +92,7 @@ void FastUserSwitch::init()
 
 void FastUserSwitch::setupTooltip()
 {
-  QString username = currentUsername(!m_useCompleteName);
+  QString username = getUsername(!m_useCompleteName);
   QPixmap pixmap;
 
   if (m_useUserImage) {
@@ -218,7 +218,7 @@ void FastUserSwitch::checkLayout()
     m_layout->addItem(m_labelIcon);
   }
 
-  m_labelName->setText(QString("<strong>%1</strong>").arg(currentUsername(!m_useCompleteName)));
+  m_labelName->setText(QString("<strong>%1</strong>").arg(getUsername(!m_useCompleteName)));
 }
 
 void FastUserSwitch::constraintsEvent(Plasma::Constraints constraints)

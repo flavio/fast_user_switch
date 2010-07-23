@@ -81,11 +81,11 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
       continue;
 
     Plasma::IconWidget* entry = createButton(this);
-    pixmap = currentUserIcon();
+    pixmap = getUserIcon();
 
     entry->setIcon(pixmap);
 
-    QString username = currentUsername();
+    QString username = getUsername();
     entry->setText(username);
 
     connect(entry, SIGNAL(clicked()), m_signalMapper, SLOT(map()));

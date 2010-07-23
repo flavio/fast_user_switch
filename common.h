@@ -20,12 +20,14 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <kuser.h>
+
 #include <QtCore/QString>
 #include <QtGui/QPixmap>
 
 static const char DEFAULT_ICON_NAME[] = "user-identity";
 
-const QString currentUsername(bool useShortName=false);
-QPixmap currentUserIcon();
+const QString getUsername(bool useShortName=false, const KUser& user = KUser());
+QPixmap getUserIcon(const KUser& user = KUser());
 
 #endif

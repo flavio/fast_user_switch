@@ -6,9 +6,8 @@
 #include <kiconloader.h>
 #include <kuser.h>
 
-const QString currentUsername(bool useShortName)
+const QString getUsername(bool useShortName, const KUser& user)
 {
-  KUser user;
   if (useShortName)
     return user.loginName();
 
@@ -19,9 +18,8 @@ const QString currentUsername(bool useShortName)
   return username;
 }
 
-QPixmap currentUserIcon()
+QPixmap getUserIcon(const KUser& user)
 {
-  KUser user;
   QPixmap pixmap;
   int iconSize = IconSize(KIconLoader::Desktop);
   if (QFile::exists(user.faceIconPath())) {
