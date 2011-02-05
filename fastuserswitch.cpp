@@ -125,9 +125,9 @@ void FastUserSwitch::configChanged()
 {
   KConfigGroup cg = config();
   m_showIconPlusText = cg.readEntry(ICON_PLUS_TEXT, false);
-  m_showOnlyIcon = cg.readEntry(ICON_ONLY, true);
-  m_showOnlyText = cg.readEntry(TEXT_ONLY, false);
-  m_useUserImage = cg.readEntry(USE_USER_IMAGE, false);
+  m_showOnlyIcon = cg.readEntry(ICON_ONLY, false); //salva: it was true
+  m_showOnlyText = cg.readEntry(TEXT_ONLY, true); //salva: it was false
+  m_useUserImage = cg.readEntry(USE_USER_IMAGE, true); //salva: it was false
   m_useCompleteName = cg.readEntry(USE_COMPLETE_NAME, true);
 }
 void FastUserSwitch::configAccepted()
