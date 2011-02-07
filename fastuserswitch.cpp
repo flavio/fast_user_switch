@@ -44,7 +44,7 @@ K_EXPORT_PLASMA_APPLET(fastuserswitch, FastUserSwitch)
 #define USE_USER_IMAGE "useUserImage"
 #define USE_COMPLETE_NAME "useCompleteName"
 
-#define MARGINSIZE 0 //salva: it was 6
+#define MARGINSIZE 0
 
 FastUserSwitch::FastUserSwitch(QObject *parent, const QVariantList &args)
   : Plasma::PopupApplet(parent, args),
@@ -73,7 +73,7 @@ void FastUserSwitch::init()
 
   m_layout = new QGraphicsLinearLayout(Qt::Horizontal, this);
   m_layout->setSpacing(0);
-  m_layout->setContentsMargins(0, 0, 5, 0); //salva: from plasma-widget-menubar QLayout::setContentsMargins ( int left, int top, int right, int bottom ), I only put right to give some space between text and the end of the panel, it could be done with an spacer, but I preferred like this
+  m_layout->setContentsMargins(0, 0, 5, 0);
 
   m_labelIcon = new Plasma::Label();
   m_labelIcon->nativeWidget()->setSizePolicy(QSizePolicy::Preferred,
@@ -81,7 +81,6 @@ void FastUserSwitch::init()
 
   m_labelName = new Plasma::Label();
   m_labelName->setAlignment(Qt::AlignCenter);
-  //m_labelName->nativeWidget()->setMargin(10); salva: removed, I put setContentsMargins above instead
   m_labelName->nativeWidget()->setSizePolicy(QSizePolicy::MinimumExpanding,
                                              QSizePolicy::MinimumExpanding);
 
@@ -125,9 +124,9 @@ void FastUserSwitch::configChanged()
 {
   KConfigGroup cg = config();
   m_showIconPlusText = cg.readEntry(ICON_PLUS_TEXT, false);
-  m_showOnlyIcon = cg.readEntry(ICON_ONLY, false); //salva: it was true
-  m_showOnlyText = cg.readEntry(TEXT_ONLY, true); //salva: it was false
-  m_useUserImage = cg.readEntry(USE_USER_IMAGE, true); //salva: it was false
+  m_showOnlyIcon = cg.readEntry(ICON_ONLY, false);
+  m_showOnlyText = cg.readEntry(TEXT_ONLY, true);
+  m_useUserImage = cg.readEntry(USE_USER_IMAGE, true);
   m_useCompleteName = cg.readEntry(USE_COMPLETE_NAME, true);
 }
 void FastUserSwitch::configAccepted()
