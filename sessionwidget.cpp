@@ -144,11 +144,21 @@ void SessionWidget::slotSwitchSession(int vt)
 
   KDisplayManager manager;
   if (vt == -1) {
-    // lock screen
+    // lock screen and start new session
     QDBusInterface screensaver("org.freedesktop.ScreenSaver",
                                "/ScreenSaver", "org.freedesktop.ScreenSaver");
     screensaver.call( "Lock" );
     manager.startReserve();
+  } else if (vt == -2) {
+    // lock screen
+    QDBusInterface screensaver("org.freedesktop.ScreenSaver",
+                               "/ScreenSaver", "org.freedesktop.ScreenSaver");
+    screensaver.call( "Lock" );
+  } else if (vt == -3) {
+    // logout
+    KWorkSpace::requestShutDown( KWorkSpace::ShutdownConfirmDefault,
+                                 KWorkSpace::ShutdownTypeDefault,
+                                 KWorkSpace::ShutdownModeDefault);
   } else
     manager.lockSwitchVT(vt);
 }
