@@ -25,9 +25,15 @@
 #include <QtCore/QString>
 #include <QtGui/QPixmap>
 
-static const char DEFAULT_ICON_NAME[] = "user-identity";
+static const char DEFAULT_ICON_NAME[]     = "user-identity";
+static const char LOCK_SCREEN_ICON_NAME[] = "system-lock-screen";
+static const char LOGOUT_ICON_NAME[]      = "system-shutdown";
+static const char SWITCH_ICON_NAME[]      = "system-switch-user";
 
 const QString getUsername(bool useShortName=false, const KUser& user = KUser());
 QPixmap getUserIcon(const KUser& user = KUser());
+QPixmap getLockScreenIcon();
+QPixmap getLogoutIcon();
+QPixmap getSessionSwitchIcon();
 
 #endif

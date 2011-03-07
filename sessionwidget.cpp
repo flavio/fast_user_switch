@@ -32,6 +32,7 @@
 #include <kuser.h>
 #include <kworkspace/kdisplaymanager.h>
 #include <plasma/widgets/iconwidget.h>
+#include <plasma/widgets/separator.h>
 
 bool operator <(const Plasma::IconWidget& a, const Plasma::IconWidget& b)
 {
@@ -72,7 +73,7 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
   KDisplayManager manager;
   manager.localSessions(sessions);
 
-  QList<Plasma::IconWidget*> entries;
+  QList<QGraphicsWidget*> entries;
 
   foreach(SessEnt session, sessions) {
     QPixmap pixmap;
@@ -103,14 +104,36 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
   // sort the entries alphabetically
   qSort(entries);
 
+  // add separator
+  Plasma::Separator* separator = new Plasma::Separator(this);
+  separator->setOrientation(Qt::Horizontal);
+  entries << separator;
+
   // add "Login window"
   Plasma::IconWidget* entry = createButton(this);
+  entry->setIcon(getSessionSwitchIcon());
   entry->setText(i18n("Open login window"));
   connect(entry, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
   m_signalMapper->setMapping(entry, -1);
   entries << entry;
 
-  foreach(Plasma::IconWidget* entry, entries) {
+  // add "Lock screen"
+  Plasma::IconWidget* entryLockScreen = createButton(this);
+  entryLockScreen->setIcon(getLockScreenIcon());
+  entryLockScreen->setText(i18n("Lock Screen"));
+  connect(entryLockScreen, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
+  m_signalMapper->setMapping(entryLockScreen, -2);
+  entries << entryLockScreen;
+  
+  // add "Logout"
+  Plasma::IconWidget* entryLogout = createButton(this);
+  entryLogout->setIcon(getLogoutIcon());
+  entryLogout->setText(i18n("Leave..."));
+  connect(entryLogout, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
+  m_signalMapper->setMapping(entryLogout, -3);
+  entries << entryLogout;
+
+  foreach(QGraphicsWidget* entry, entries) {
     mainLayout->addItem(entry);
   }
 }

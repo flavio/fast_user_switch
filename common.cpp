@@ -29,3 +29,34 @@ QPixmap getUserIcon(const KUser& user)
 
   return pixmap;
 }
+
+QPixmap getLockScreenIcon()
+{
+  QPixmap pixmap;
+  int iconSize = IconSize(KIconLoader::Desktop);
+
+  pixmap = KIcon(LOCK_SCREEN_ICON_NAME).pixmap(iconSize);
+
+  return pixmap;
+}
+
+QPixmap getLogoutIcon()
+{
+  QPixmap pixmap;
+  int iconSize = IconSize(KIconLoader::Desktop);
+
+  pixmap = KIcon(LOGOUT_ICON_NAME).pixmap(iconSize);
+
+  return pixmap;
+}
+
+QPixmap getSessionSwitchIcon()
+{
+  QPixmap pixmap;
+  int iconSize = IconSize(KIconLoader::Desktop);
+
+  pixmap = KIcon(SWITCH_ICON_NAME).pixmap(iconSize);
+
+  return pixmap;
+}
+
