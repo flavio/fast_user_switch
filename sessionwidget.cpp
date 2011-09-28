@@ -29,6 +29,7 @@
 #include <QtGui/QShowEvent>
 
 #include <kiconloader.h>
+#include <ksharedconfig.h>
 #include <kuser.h>
 #include <kworkspace/kdisplaymanager.h>
 #include <plasma/widgets/iconwidget.h>
@@ -144,10 +145,19 @@ void SessionWidget::slotSwitchSession(int vt)
 
   KDisplayManager manager;
   if (vt == -1) {
+    // Figure out screensaver's 'lock' option value
+    KSharedConfigPtr config = KSharedConfig::openConfig("kscreensaverrc");
+    KConfigGroup screensaverGroup = config->group("ScreenSaver");
+    bool lockToggled = screensaverGroup.readEntry("Lock", false);
+
     // lock screen and start new session
     QDBusInterface screensaver("org.freedesktop.ScreenSaver",
                                "/ScreenSaver", "org.freedesktop.ScreenSaver");
-    screensaver.call( "Lock" );
+    if (lockToggled)
+      screensaver.call( "Lock" );
+    else
+      screensaver.call( "SetActive", true );
+
     manager.startReserve();
   } else if (vt == -2) {
     // lock screen
