@@ -1,3 +1,7 @@
+Wed Sep 28 14:59:49 CEST 2011  Flavio Castelli <flavio@castelli.name>
+
+	* Take into consideration screensaver's lock setting
+
 Fri Jul 23 00:44:48 CEST 2010  Flavio Castelli  <flavio@castelli.name>
 
 	* added new configurations:
