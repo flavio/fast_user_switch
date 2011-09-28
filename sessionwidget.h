@@ -41,6 +41,7 @@ class SessionWidget :public QGraphicsWidget
     void clearEntries();
 
     QSignalMapper* m_signalMapper;
+    enum Actions { OPEN_LOGIN, LOCK_SCREEN, LEAVE };
 };
 
 #endif

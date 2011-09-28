@@ -115,7 +115,7 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
   entry->setIcon(getSessionSwitchIcon());
   entry->setText(i18n("Open login window"));
   connect(entry, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
-  m_signalMapper->setMapping(entry, -1);
+  m_signalMapper->setMapping(entry, SessionWidget::OPEN_LOGIN);
   entries << entry;
 
   // add "Lock screen"
@@ -123,7 +123,7 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
   entryLockScreen->setIcon(getLockScreenIcon());
   entryLockScreen->setText(i18n("Lock Screen"));
   connect(entryLockScreen, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
-  m_signalMapper->setMapping(entryLockScreen, -2);
+  m_signalMapper->setMapping(entryLockScreen, SessionWidget::LOCK_SCREEN);
   entries << entryLockScreen;
   
   // add "Logout"
@@ -131,7 +131,7 @@ SessionWidget::SessionWidget( QGraphicsItem * parent, Qt::WindowFlags wFlags)
   entryLogout->setIcon(getLogoutIcon());
   entryLogout->setText(i18n("Leave..."));
   connect(entryLogout, SIGNAL(clicked()), m_signalMapper, SLOT(map()));
-  m_signalMapper->setMapping(entryLogout, -3);
+  m_signalMapper->setMapping(entryLogout, SessionWidget::LEAVE);
   entries << entryLogout;
 
   foreach(QGraphicsWidget* entry, entries) {
@@ -144,7 +144,7 @@ void SessionWidget::slotSwitchSession(int vt)
   emit switching();
 
   KDisplayManager manager;
-  if (vt == -1) {
+  if (vt == SessionWidget::OPEN_LOGIN) {
     // Figure out screensaver's 'lock' option value
     KSharedConfigPtr config = KSharedConfig::openConfig("kscreensaverrc");
     KConfigGroup screensaverGroup = config->group("ScreenSaver");
@@ -159,12 +159,12 @@ void SessionWidget::slotSwitchSession(int vt)
       screensaver.call( "SetActive", true );
 
     manager.startReserve();
-  } else if (vt == -2) {
+  } else if (vt == SessionWidget::LOCK_SCREEN) {
     // lock screen
     QDBusInterface screensaver("org.freedesktop.ScreenSaver",
                                "/ScreenSaver", "org.freedesktop.ScreenSaver");
     screensaver.call( "Lock" );
-  } else if (vt == -3) {
+  } else if (vt == SessionWidget::LEAVE) {
     // logout
     KWorkSpace::requestShutDown( KWorkSpace::ShutdownConfirmDefault,
                                  KWorkSpace::ShutdownTypeDefault,
